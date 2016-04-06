@@ -6,7 +6,7 @@ using EventStore.Core.Index;
 
 namespace EventStore.Core.Tests.Index
 {
-    [TestFixture]
+    [TestFixture, Explicit, Category("Manual")]
     public class opening_a_ptable_with_more_than_32bits_of_records: SpecificationWithFilePerTestFixture
     {
         private PTable _ptable;
@@ -33,13 +33,13 @@ namespace EventStore.Core.Tests.Index
             base.TestFixtureTearDown();
         }
 
-        [Test, Explicit]
+        [Test]
         public void count_should_be_right()
         {
             Assert.AreEqual((long) uint.MaxValue + 10000000L, _ptable.Count);
         }
 
-        [Test, Explicit]
+        [Test]
         public void filename_is_correct()
         {
             Assert.AreEqual(Filename, _ptable.Filename);
