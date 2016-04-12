@@ -5,6 +5,7 @@ using System.Security.Principal;
 using EventStore.Common.Log;
 using EventStore.Core.Helpers;
 using EventStore.Core.Messaging;
+using EventStore.Core.Services.UserManagement;
 using EventStore.Projections.Core.Messages;
 
 namespace EventStore.Projections.Core.Services.Processing
@@ -134,7 +135,7 @@ namespace EventStore.Projections.Core.Services.Processing
                 var streamMetadata = emittedEvents.Length > 0 ? emittedEvents[0].StreamMetadata : null;
 
                 var writerConfiguration = new EmittedStream.WriterConfiguration(
-                    streamMetadata, _runAs, maxWriteBatchLength: _maxWriteBatchLength, logger: _logger);
+                    streamMetadata, SystemAccount.Principal, maxWriteBatchLength: _maxWriteBatchLength, logger: _logger);
 
                 stream = new EmittedStream(
                     streamId, writerConfiguration, _projectionVersion, _positionTagger, _from, _ioDispatcher, this);
